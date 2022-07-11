@@ -58,7 +58,7 @@ public class AttackPrefab : MonoBehaviour
             }
             //위치를 업데이트한다.
             previousPos = transform.position;
-            yield return new WaitForSeconds(0.01f);
+            yield return null;
         }
     }
     IEnumerator OnDamage()

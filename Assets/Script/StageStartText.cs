@@ -15,10 +15,10 @@ public class StageStartText : MonoBehaviour
     {   //화면 가운데에서 잠시 멈췄다가 계속 진행함
         if (rect.anchoredPosition.x < 10f)
         {
-            rect.anchoredPosition = Vector2.Lerp(rect.anchoredPosition, new Vector2(-Screen.width, 0), 2 * Time.deltaTime);
+            rect.anchoredPosition = Vector2.Lerp(rect.anchoredPosition, new Vector2(-Screen.width, 0), 2 * Time.unscaledDeltaTime);
         }
         else {
-            rect.anchoredPosition = Vector2.Lerp(rect.anchoredPosition, new Vector2(0, 0), 2.3f * Time.deltaTime);
+            rect.anchoredPosition = Vector2.Lerp(rect.anchoredPosition, new Vector2(0, 0), 2.3f * Time.unscaledDeltaTime);
         }
     }
 }

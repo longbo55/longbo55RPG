@@ -6,9 +6,6 @@ public class SceneMoveManager : MonoBehaviour
 {
     public void ChangeScene(int i)
     {
-        if (i != -1)
-        {
-            SceneManager.LoadScene(i);
-        }
+        SceneManager.LoadScene(i);
     }
 }

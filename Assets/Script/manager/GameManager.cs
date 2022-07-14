@@ -2,11 +2,13 @@
 using System.Collections;
 using UnityEngine;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoBehaviour
 {
+    public static GameManager instance { get; private set; }
     //남아있는 적의 수
     public GameObject enemyCountUI;
     public int enemyCount;
+
     //남아있는 플레이어 캐릭터의 수
     public int playerCount;
 
@@ -26,8 +28,9 @@ public class GameManager : Singleton<GameManager>
     //플레이어 캐릭터
     public GameObject[] PlayerCharacter;
 
-    protected override void OnAwake()
+    void Awake()
     {
+        instance = this;
     }
 
     void Start()
@@ -71,12 +74,36 @@ public class GameManager : Singleton<GameManager>
     public void GameOverCheck() {
         UIManager.instance.enemyCountText.text = enemyCount.ToString();
         if (enemyCount<=0) {
-            missionSuccessUI.SetActive(true);
-            StageStartUI.SetActive(false);
+            StartCoroutine(MissionSuccess());
         }
+
         if (playerCount<=0 && enemyCount>0) { 
             missionFailUI.SetActive(true);
             StageStartUI.SetActive(false);
         }
+    }
+    public void TimeTwiceButton() {
+        if (Time.timeScale == 1)  
+        {
+            Time.timeScale = 2;
+        } 
+        else 
+        {
+            Time.timeScale = 1;
+        }
+    }
+    //22.07.14여기서 멈춤.
+    IEnumerator MissionSuccess() {
+        float tempTimeScale = 1;
+        while (tempTimeScale != 0) {
+            Time.timeScale = tempTimeScale;
+            tempTimeScale -= Time.deltaTime;
+            yield return null;
+        }
+        yield return new WaitForSecondsRealtime(1);
+
+        missionSuccessUI.SetActive(true);
+        StageStartUI.SetActive(false);
+        Time.timeScale = 1;
     }
 }

@@ -2,42 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class UIManager : Singleton<UIManager>
+public class UIManager : MonoBehaviour
 {
+    public static UIManager instance { get; private set; }
     public Text skillPointText;
     public Text enemyCountText;
 
     public GameObject damageText;
-    List<GameObject> damageTextList = new List<GameObject>();
-   protected override void OnAwake()
+    public List<GameObject> damageTextList = new List<GameObject>();
+    void Awake()
     {
-        Generate();
-    }
-    void Generate() {
+        instance = this;
         // 초기 갯수 20개 생성
-        for (int i = 0; i < 20; i++)
+        Generate(20);
+    }
+    void Generate(int addNumber) {
+        for (int i = 0; i < addNumber; i++)
         {
-            //텍스트오브젝트 생성하고 리스트에 추가
-            damageTextList.Add(Instantiate(damageText));
-            //생성한 오브젝트의 부모를 UICnvas로 설정
-            damageTextList[i].transform.SetParent(GameObject.Find("UICanvas").transform);
-            //마지막으로 비활성화
-            damageTextList[i].SetActive(false);
+           //텍스트오브젝트 생성하고 리스트에 추가
+           GameObject temp = Instantiate(damageText, transform.position, Quaternion.identity);
+           //생성한 오브젝트의 부모를 UICnvas로 설정
+           temp.transform.SetParent(GameObject.Find("UICanvas").transform);
+           //비활성화
+           temp.SetActive(false);
+           //마지막으로 리스트에 추가
+           damageTextList.Add(temp);
         }
     }
     public void DamageUISetActive(GameObject target,float _direction ,float damage)
     {
-        //활성화를 할 수 있는 오브젝트가 없을 때 리스트에 추가하는 기능을 구현해야됌.
-        for (int i = 0; i < damageTextList.Count; i++)
-        {
-            if (!damageTextList[i].activeSelf)
-            {
-                damageTextList[i].GetComponent<DamageText>().direction = _direction; // 피격오브젝트의 방향을 계산해서 넣어야됌 -1은 임시로 넣어둔것.
-                damageTextList[i].transform.position = Camera.main.WorldToScreenPoint(target.transform.position);
-                damageTextList[i].GetComponent<Text>().text = damage.ToString();
-                damageTextList[i].SetActive(true);
-                break;
-            }
+        while (true) { 
+             for (int i = 0; i < damageTextList.Count; i++)
+             {
+                 if (!damageTextList[i].activeSelf)
+                 {
+                     damageTextList[i].GetComponent<DamageText>().direction = _direction;
+                     damageTextList[i].transform.position = Camera.main.WorldToScreenPoint(target.transform.position);
+                     damageTextList[i].GetComponent<Text>().text = damage.ToString();
+                     damageTextList[i].SetActive(true);
+                     return;
+                 }
+             }
+            //만약 for문이 끝났는데도 함수가 끝나지 않으면 Generate함수를 통해 damageText를 추가 생성
+            Generate(3);
         }
     }
 }

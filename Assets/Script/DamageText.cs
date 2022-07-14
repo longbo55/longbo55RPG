@@ -24,7 +24,7 @@ public class DamageText : MonoBehaviour
         float nowSpeed=speed;
         while (gameObject.activeSelf)
         {
-            transform.Translate(new Vector3(Mathf.Sign(-direction) * 20 * Time.deltaTime, nowSpeed * Time.deltaTime, 0));
+            transform.Translate(new Vector3(Mathf.Sign(-direction) * 20 * Time.unscaledDeltaTime, nowSpeed * Time.unscaledDeltaTime, 0));
             nowSpeed--;
             yield return null;
         }
@@ -39,7 +39,7 @@ public class DamageText : MonoBehaviour
         {
             color.a -= 0.05f;
             text.color = color;
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSecondsRealtime(0.05f);
         }
         //페이드아웃 완료시 비활성화
         gameObject.SetActive(false);

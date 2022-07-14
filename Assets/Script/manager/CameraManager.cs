@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraManager : MonoBehaviour {
+public class CameraManager : MonoBehaviour 
+{
     public float speed = 0;
     float distance = 0;
-    Camera camera;
+    Camera mainCamera;
     Camera subCamera;
     private void Start()
     {
-        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         subCamera = GameObject.FindGameObjectWithTag("SubCamera").GetComponent<Camera>();
         StartCoroutine(Move());
         StartCoroutine(Zoom());
@@ -49,18 +50,18 @@ public class CameraManager : MonoBehaviour {
             //실시간으로 distance값의 1/10과 카메라의 최소사이즈에 해당하는 값(3.5f)을 해당 변수에 넣음
             float cameraSize = 3.5f + (distance / 10);
             //cameraSize 변수와 현재의 사이즈의 차이가 0.2f이하일때까지 반복한다
-            while (Mathf.Abs(cameraSize-camera.orthographicSize)>0.2f)
+            while (Mathf.Abs(cameraSize- mainCamera.orthographicSize)>0.2f)
             {
-                if (cameraSize > camera.orthographicSize)
+                if (cameraSize > mainCamera.orthographicSize)
                 {
-                    camera.orthographicSize += Time.deltaTime;
+                    mainCamera.orthographicSize += Time.deltaTime;
                 }
                 else
                 {
-                    camera.orthographicSize -= Time.deltaTime;
+                    mainCamera.orthographicSize -= Time.deltaTime;
                 }
 
-                subCamera.orthographicSize = camera.orthographicSize;
+                subCamera.orthographicSize = mainCamera.orthographicSize;
                 yield return new WaitForSeconds(0.01f);
             }
             yield return null;

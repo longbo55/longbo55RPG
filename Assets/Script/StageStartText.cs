@@ -10,15 +10,22 @@ public class StageStartText : MonoBehaviour
        rect = GetComponent<RectTransform>();
         //시작 위치 초기화
        rect.anchoredPosition =new Vector2 (Screen.width,0);
+        StartCoroutine(Move());
     }
-    void Update()
-    {   //화면 가운데에서 잠시 멈췄다가 계속 진행함
-        if (rect.anchoredPosition.x < 10f)
-        {
-            rect.anchoredPosition = Vector2.Lerp(rect.anchoredPosition, new Vector2(-Screen.width, 0), 2 * Time.unscaledDeltaTime);
+    IEnumerator Move() {
+        while (rect.anchoredPosition.x > (-Screen.width * 2)) {
+            //화면 가운데에서 잠시 멈췄다가 계속 진행함
+            if (rect.anchoredPosition.x <= 10)
+            {
+                rect.anchoredPosition = Vector2.Lerp(rect.anchoredPosition, new Vector2((-Screen.width * 3), 0), 2 * Time.deltaTime);
+            }
+            else
+            {
+                rect.anchoredPosition = Vector2.Lerp(rect.anchoredPosition, new Vector2(0, 0), 2.3f * Time.deltaTime);
+            }
+            yield return null;
         }
-        else {
-            rect.anchoredPosition = Vector2.Lerp(rect.anchoredPosition, new Vector2(0, 0), 2.3f * Time.unscaledDeltaTime);
-        }
+        GameManager.instance.PlayerSkillUIActive();
+        transform.parent.gameObject.SetActive(false);
     }
 }

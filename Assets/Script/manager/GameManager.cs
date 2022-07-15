@@ -5,8 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
+
+    //인게임에 적용되는 모든 UI를 담은 오브젝트
+    public GameObject[] inGameUI;
     //남아있는 적의 수
-    public GameObject enemyCountUI;
     public int enemyCount;
 
     //남아있는 플레이어 캐릭터의 수
@@ -34,14 +36,14 @@ public class GameManager : MonoBehaviour
     }
 
     void Start()
-    {
+    {   
+        Time.timeScale = 1;
         playerCount = PlayerCharacter.Length;
         //게임의 시작을 알리는 UI를 활성화함.
         StageStartUI.SetActive(true);
 
        //캐릭터의 스킬을  UI와 연동해야하는데 그럴려면 저장기능부터 만들어야 하지만 아직 안만들었기에 일단 비활성화해둠.
        // PlayerCharacterLoad();
-        StartCoroutine(PlayerSkillUIActive());
     }
 
     private void FixedUpdate()
@@ -62,19 +64,22 @@ public class GameManager : MonoBehaviour
     }
 
     //시작 알림 UI를 비활성화하고 플레이어의 스킬UI를 활성화함.
-    IEnumerator PlayerSkillUIActive()
+    public void PlayerSkillUIActive()
     {
-        yield return new WaitForSeconds(1.6f);
         StageStartUI.SetActive(false);
-        enemyCountUI.SetActive(true);
-        skillUI.SetActive(true);
+        for (int i = 0; i < inGameUI.Length; i++)
+        {
+            inGameUI[i].SetActive(true);
+        }
         UIManager.instance.enemyCountText.text = enemyCount.ToString();
     }
 
     public void GameOverCheck() {
         UIManager.instance.enemyCountText.text = enemyCount.ToString();
-        if (enemyCount<=0) {
+        if (enemyCount<=0)
+        {
             StartCoroutine(MissionSuccess());
+            StartCoroutine(SlowTime());
         }
 
         if (playerCount<=0 && enemyCount>0) { 
@@ -86,24 +91,31 @@ public class GameManager : MonoBehaviour
         if (Time.timeScale == 1)  
         {
             Time.timeScale = 2;
+            Debug.Log(Time.timeScale);
         } 
-        else 
+        else
         {
             Time.timeScale = 1;
+            Debug.Log(Time.timeScale);
         }
     }
-    //22.07.14여기서 멈춤.
-    IEnumerator MissionSuccess() {
+    IEnumerator SlowTime() {
         float tempTimeScale = 1;
-        while (tempTimeScale != 0) {
+        while (tempTimeScale != 0)
+        {
             Time.timeScale = tempTimeScale;
             tempTimeScale -= Time.deltaTime;
             yield return null;
         }
-        yield return new WaitForSecondsRealtime(1);
+    }
+    IEnumerator MissionSuccess() {
+    
+        yield return new WaitForSecondsRealtime(2);
 
-        missionSuccessUI.SetActive(true);
-        StageStartUI.SetActive(false);
-        Time.timeScale = 1;
+        missionSuccessUI.SetActive(true); 
+        for (int i = 0; i < inGameUI.Length; i++)
+        {
+            inGameUI[i].SetActive(false);
+        }
     }
 }

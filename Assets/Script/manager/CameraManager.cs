@@ -40,7 +40,7 @@ public class CameraManager : MonoBehaviour
                   }
             transform.position = Vector3.Lerp(transform.position, new Vector3((hitCharacter[left].transform.position.x + hitCharacter[right].transform.position.x) / 2, transform.position.y, transform.position.z), speed * Time.deltaTime);
            }
-            yield return new WaitForSeconds(0.01f);
+            yield return null;
         }
     }
     IEnumerator Zoom()

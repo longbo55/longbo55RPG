@@ -3,7 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : Character, Idamage
-{  
+{    //피격
+    public void Hit(int damage)
+    {
+        hp -= damage;
+
+        if (hp <= 0)
+        {
+            isAlive = false;
+        }
+    }/*
     //상태
     public enum States
     {
@@ -59,16 +68,7 @@ public class Enemy : Character, Idamage
         return null;
     }
   
-    //피격
-    public void Hit(int damage)
-    {
-        hp -= damage;
-
-        if (hp <= 0)
-        {
-            isAlive = false;
-        }
-    }
+  
     Collider FindTarget()
     {
         Collider[] hitCharacter = Physics.OverlapBox(transform.position, new Vector3(traceRange, 5, traceRange), Quaternion.identity, LayerMask.GetMask("Character"));
@@ -196,5 +196,5 @@ public class Enemy : Character, Idamage
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(transform.position, new Vector3(traceRange * 2, 5, traceRange * 2));
-    }
+    }*/
 }

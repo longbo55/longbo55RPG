@@ -36,8 +36,7 @@ public class GameManager : MonoBehaviour
     }
 
     void Start()
-    {   
-        Time.timeScale = 1;
+    {
         playerCount = PlayerCharacter.Length;
         //게임의 시작을 알리는 UI를 활성화함.
         StageStartUI.SetActive(true);
@@ -64,7 +63,7 @@ public class GameManager : MonoBehaviour
     }
 
     //시작 알림 UI를 비활성화하고 플레이어의 스킬UI를 활성화함.
-    public void PlayerSkillUIActive()
+    public void InGameUIActive()
     {
         StageStartUI.SetActive(false);
         for (int i = 0; i < inGameUI.Length; i++)
@@ -74,42 +73,41 @@ public class GameManager : MonoBehaviour
         UIManager.instance.enemyCountText.text = enemyCount.ToString();
     }
 
-    public void GameOverCheck() {
+    public void GameOverCheck(string tag) {
+        if (tag=="Player") {
+            playerCount--;
+        }
+        else { 
+        enemyCount--;
+        }
+
         UIManager.instance.enemyCountText.text = enemyCount.ToString();
+        //승리
         if (enemyCount<=0)
         {
             StartCoroutine(MissionSuccess());
             StartCoroutine(SlowTime());
         }
-
-        if (playerCount<=0 && enemyCount>0) { 
+        //패배
+        if (playerCount<=0 && enemyCount > 0) { 
             missionFailUI.SetActive(true);
             StageStartUI.SetActive(false);
         }
     }
-    public void TimeTwiceButton() {
-        if (Time.timeScale == 1)  
-        {
-            Time.timeScale = 2;
-            Debug.Log(Time.timeScale);
-        } 
-        else
-        {
-            Time.timeScale = 1;
-            Debug.Log(Time.timeScale);
-        }
+    public void TimeScaleChangeButton(int timeScale) 
+    {
+            Time.timeScale = timeScale;
     }
-    IEnumerator SlowTime() {
-        float tempTimeScale = 1;
-        while (tempTimeScale != 0)
+    IEnumerator SlowTime()
+    {
+        Time.timeScale = 1;
+        while (Time.timeScale != 0)
         {
-            Time.timeScale = tempTimeScale;
-            tempTimeScale -= Time.deltaTime;
-            yield return null;
+            Time.timeScale -=0.01f;
+            yield return new WaitForFixedUpdate();
         }
     }
     IEnumerator MissionSuccess() {
-    
         yield return new WaitForSecondsRealtime(2);
 
         missionSuccessUI.SetActive(true); 

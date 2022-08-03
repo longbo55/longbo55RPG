@@ -9,23 +9,16 @@ public class AttackPrefab : MonoBehaviour
 
     public GameObject attackPrefab;
     public ParticleSystem ExplosionParticle;
- 
-    public Vector3 targetPoint;
-    public string tagName;
 
     public RaycastHit hit;
     public Vector3 previousPos;
-    private void OnEnable()
+   void OnEnable()
     {
-        //오브젝트가 활정화된다면 이전 위치를 현재위치로 초기화해줌
+        //오브젝트가 활성화 된다면 이전 위치를 현재위치로 초기화해줌
         previousPos = transform.position;
         
         //공격프리팹오브젝트 활성화
         attackPrefab.SetActive(true);
-
-        //targetPoint에서 y값을 0으로 만들기위한 작업
-        targetPoint = targetPoint - transform.position;
-        targetPoint = new Vector3(targetPoint.x, 0, targetPoint.z);
         
         //코루틴 시작
         StartCoroutine(Move()); 
@@ -35,15 +28,17 @@ public class AttackPrefab : MonoBehaviour
     {
         while (true)
         {
+            //앞으로 이동한다.
+            transform.Translate(Vector3.forward * speed);
 
             //타겟의 위치방향으로 이동한다.
-            transform.Translate(targetPoint * speed * Time.deltaTime, Space.World);
-            Debug.DrawRay(transform.position, (previousPos - transform.position), Color.green,0.1f,false);
+            //transform.Translate(targetPoint * speed * Time.deltaTime, Space.World);
+
             //프레임만큼 이동한 거리내에 오브젝트가 있나 확인
             if (Physics.Raycast(transform.position, (previousPos - transform.position), out hit, Vector3.Distance(previousPos, transform.position),LayerMask.GetMask("Character")))
             {
-                //오브젝트의 태그가 tagName변수와 같다면
-                if (hit.collider.CompareTag(tagName))
+                //오브젝트의 태그가 타겟의 태그와 같지 않으면
+                if (!hit.collider.CompareTag(gameObject.tag))
                 {
                     //감지된 오브젝트의 Idamage컴포넌트를 받아와서 Hit함수를 실행한다.
                     Idamage onDamage = hit.collider.GetComponent<Idamage>();
@@ -58,7 +53,7 @@ public class AttackPrefab : MonoBehaviour
             }
             //위치를 업데이트한다.
             previousPos = transform.position;
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
     }
     IEnumerator OnDamage()
@@ -70,6 +65,9 @@ public class AttackPrefab : MonoBehaviour
 
         //1초뒤에 비활성화
         yield return new WaitForSeconds(1);
+
+        //딕셔너리 맨 뒤에 추가
+        ObjectPoolingManager.instance.poolDictionary[gameObject.name].Enqueue(gameObject);
         gameObject.SetActive(false);
     }
     IEnumerator SetActiveFalse() {

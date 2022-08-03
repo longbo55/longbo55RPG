@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AttackPrefab" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAIAAAgAACAQAAAEBCAAAAQAAAAAACACACAA=</HashCode>
+      <FileName>Assets\Script\AttackPrefab.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Character" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABICAAAAAAAEAAAQBAAAAEAAAUABAUAAAABAAEEAACA=</HashCode>
+      <FileName>Assets\Script\CharacterScript\Character.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Enemy" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAEAABAAKAAAEAABAIAEAAAAAAAABAkAEAAAEAAAEQ=</HashCode>
+      <FileName>Assets\Script\CharacterScript\Enemy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PlayerCharacter" Collapsed="true">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAEAABAAKAAAEAABAIAEABAAAAAABAkAEAAAEAAAEQ=</HashCode>
+      <FileName>Assets\Script\CharacterScript\PlayerCharacter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DamageText" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAIAAIAAAAAAAAAAAAAAAAQAIAAAAAAAACEA=</HashCode>
+      <FileName>Assets\Script\DamageText.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraManager" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAKAAAACAEAAAAAAAAEAAEQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\manager\CameraManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager" Collapsed="true">
+    <Position X="8.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAIQEAAiIAAIAQAIARAAAgACBAAAAACABAAEAAAEA=</HashCode>
+      <FileName>Assets\Script\manager\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneMoveManager" Collapsed="true">
+    <Position X="8.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Assets\Script\manager\SceneMoveManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameObjectArray" Collapsed="true">
+    <Position X="10.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\manager\SpawnManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpawnManager" Collapsed="true">
+    <Position X="5.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAACQAAgAAAAAAAAAQAAAAAAAAAAgAAAAQAQA=</HashCode>
+      <FileName>Assets\Script\manager\SpawnManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UIManager" Collapsed="true">
+    <Position X="8.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAgABAAAEAAAAAQEAAAkA=</HashCode>
+      <FileName>Assets\Script\manager\UIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkillAttackPrefeb" Collapsed="true">
+    <Position X="10.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAACIAAAAAACAQAAAEACAAAAQAAAAAACABACAA=</HashCode>
+      <FileName>Assets\Script\SkillAttackPrefeb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StageStartText" Collapsed="true">
+    <Position X="7" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAKAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\StageStartText.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="IAttack" Collapsed="true">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\IAttack.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Idamage" Collapsed="true">
+    <Position X="7" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Idamage.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

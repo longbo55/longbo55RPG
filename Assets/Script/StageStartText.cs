@@ -25,7 +25,7 @@ public class StageStartText : MonoBehaviour
             }
             yield return null;
         }
-        GameManager.instance.PlayerSkillUIActive();
+        GameManager.instance.InGameUIActive();
         transform.parent.gameObject.SetActive(false);
     }
 }
